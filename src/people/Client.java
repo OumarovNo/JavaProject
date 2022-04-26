@@ -9,7 +9,7 @@ package people;
  *
  * @author Nohch
  */
-public class Client implements authenticate.Identifiable{
+public class Client extends Personne implements authenticate.Identifiable{
 
     @Override
     public String getId() {

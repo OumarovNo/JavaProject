@@ -450,9 +450,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         else if(e.getSource() == menuItemDebuter)
         {
             new debuter(this,true).setVisible(true);
-        }
-        
-        
+        }  
     }
     
 
