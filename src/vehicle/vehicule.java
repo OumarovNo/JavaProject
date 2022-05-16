@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package authenticate;
+package vehicle;
 
 /**
  *
  * @author Nohch
  */
-public interface AValider {
+public class vehicule {
     
-    boolean isValid();
-    boolean validatte();
 }

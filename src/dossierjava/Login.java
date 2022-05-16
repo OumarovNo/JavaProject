@@ -46,6 +46,8 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
+        usernameTxt.setText("Nohcho");
+
         buttonGroup1.add(buttonMemPer);
         buttonMemPer.setText("Membre personnel");
 
@@ -58,6 +60,8 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        passwordTxt.setText("Oumarov");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,7 +118,7 @@ public class Login extends javax.swing.JFrame {
             Mecanicien mecano = new Mecanicien();
             mecano.setMdp(String.valueOf(passwordTxt.getPassword()));
             mecano.setUsername(usernameTxt.getText().trim());
-            if(mecano.validate())
+            if(mecano.validatte())
             {
                 
                 new atelierWindow().setVisible(true);
@@ -126,7 +130,7 @@ public class Login extends javax.swing.JFrame {
             TechnicienExterieur tech = new TechnicienExterieur();
             tech.setMdp(String.valueOf(passwordTxt.getPassword()));
             tech.setUsername(usernameTxt.getText().trim());
-            if(tech.validate())
+            if(tech.validatte())
             {
                 close();
                 new atelierWindow().setVisible(true);

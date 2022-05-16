@@ -3,14 +3,3 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package authenticate;
-
-/**
- *
- * @author Nohch
- */
-public interface AValider {
-    
-    boolean isValid();
-    boolean validatte();
-}

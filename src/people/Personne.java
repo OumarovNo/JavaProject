@@ -11,7 +11,7 @@ package people;
  */
 public class Personne {
 
-    private String nom,prenom,numTel,adresse;
+    protected String nom,prenom,numTel,adresse;
     public Personne() {
     }
 

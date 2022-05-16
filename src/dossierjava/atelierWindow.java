@@ -5,7 +5,10 @@
  */
 package dossierjava;
 
-import travaux.*;
+import activites.Entretien;
+import activites.Reparation;
+import activites.travail;
+import activites.travailEnCours;
 import dialog.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -325,39 +328,57 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         Vector v = rdv.runDialog();
         if(v != null)
         {
-            travail t = new travail(v);
-            if(t!=null)travauxAFaire.add(t);    
+            System.out.println(v.get(4).toString());
+            if(v.get(4).toString().equals("Entretien"))
+            {
+                Entretien ent = new Entretien(v);
+                System.out.println("AJOUT LISTE (ENTRETIEN)");
+                travauxAFaire.add(ent);
+            }
+            else if(v.get(4).toString().equals("Reparation"))
+            {
+                Reparation rep = new Reparation(v);
+                System.out.println("AJOUT LISTE (REPARATION)");
+                travauxAFaire.add(rep);
+            }
+            //travauxAFaire.add(new travail(v));
+               
         }
         
     }//GEN-LAST:event_menuBarItemAPrevoirActionPerformed
 
     private void menuBarItemPriseEnChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBarItemPriseEnChargeActionPerformed
+        
+        for(int i = 0;i < travauxAFaire.size();i++)
+            travauxAFaire.get(i).afficheTravail();
         priseEnCharge p = new priseEnCharge(this,true,travauxAFaire,travauxEnCours);
         travailEnCours t = p.runDialog();
         if(t != null)
         {
-            travail tmp = new travail(t);   // remove return false si on envoie t c pas pk
-            travauxAFaire.remove(tmp);    // on supprime le NOUVEAU travail en cours de la liste des travaux A FAIRE 
+            System.out.println("AFFIHCAGE -------");
+            //travail tmp = new travail(t);// remove return false si on envoie t c pas pk
+            travauxAFaire.remove(t);    // on supprime le NOUVEAU travail en cours de la liste des travaux A FAIRE 
             travauxEnCours.add(t);      // l'élément est ensuite ajouté a la liste travauxEnCours
+            t.afficheTravail();
             switch(t.getNumPont())
             {
                 case 1:
-                    pont1Txt.setText(t.getTypeVoiture() + " (" + t.getProprio()+ ")");
+                    pont1Txt.setText(t.getVoit().getTypeVoiture().toString());
                     pont1Txt.setBackground(Color.yellow);
                     pont1Txt.setOpaque(true);
                     break;
                 case 2:
-                    pont2Txt.setText(t.getTypeVoiture() + " (" + t.getProprio()+ ")");
+                    pont2Txt.setText(t.getVoit().getTypeVoiture().toString());
                     pont2Txt.setBackground(Color.yellow);
                     pont2Txt.setOpaque(true);
                     break;
                 case 3:
-                    pont3Txt.setText(t.getTypeVoiture() + " (" + t.getProprio()+ ")");
+                    pont3Txt.setText(t.getVoit().getTypeVoiture().toString());
                     pont3Txt.setBackground(Color.yellow);
                     pont3Txt.setOpaque(true);
                     break;
                 case 0:
-                    solTxt.setText(t.getTypeVoiture() + " (" + t.getProprio()+ ")");
+                    solTxt.setText(t.getVoit().getTypeVoiture().toString());
                     solTxt.setBackground(Color.yellow);
                     solTxt.setOpaque(true);
                     break;
@@ -450,7 +471,9 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         else if(e.getSource() == menuItemDebuter)
         {
             new debuter(this,true).setVisible(true);
-        }  
+        }
+        
+        
     }
     
 

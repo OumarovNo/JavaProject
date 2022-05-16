@@ -5,6 +5,10 @@
  */
 package dialog;
 
+
+import vehicle.*;
+
+import authenticate.AValider;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
@@ -17,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Nohch
  */
-public class aPrevoir extends javax.swing.JDialog {
+public class aPrevoir extends javax.swing.JDialog  {
     private static List<String> proprios;
     private static List<String> typesTravEntretien;
     private static List<String> typesTravReparation;
@@ -49,6 +53,8 @@ public class aPrevoir extends javax.swing.JDialog {
         proprioComboBox.setModel(new DefaultComboBoxModel(proprios.toArray()));
                     
     }
+    
+    
 
     private void close()
     {
@@ -256,15 +262,26 @@ public class aPrevoir extends javax.swing.JDialog {
                     {
                         try{
                             v.add(typeVoitureTxt.getText().trim());
-                            v.add(ImmatriculationTxt.getText().trim());
                             if(plaqueBelge.isSelected())
-                                v.add("true");
+                                {
+                                    v.add("true");
+                                    System.out.println("debug");
+                                }
                             else
                                 v.add("false");
+                            v.add(ImmatriculationTxt.getText().trim());
                             v.add(proprioComboBox.getSelectedItem().toString());
+                            if(radioBtnEntretien.isSelected())
+                                v.add("Entretien");
+                            else if(radioBtnRepar.isSelected())
+                                v.add("Reparation");
+                            else
+                                v.add("Erreur!");
                             v.add(typeTravailComboBox.getSelectedItem().toString());
                             v.add(instructionPart.getText().trim());    
                         }catch (Exception ex){
+                           JOptionPane.showMessageDialog(null,ex.getMessage());
+
                             System.out.println("Exception dans aPrevoir.java -> buttonOkActionPerformed"+ex.getMessage());
                         }
                         
@@ -346,4 +363,7 @@ public class aPrevoir extends javax.swing.JDialog {
     private javax.swing.JComboBox typeTravailComboBox;
     private javax.swing.JTextField typeVoitureTxt;
     // End of variables declaration//GEN-END:variables
+
+ 
+
 }

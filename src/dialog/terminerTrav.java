@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import travaux.travail;
-import travaux.travailEnCours;
+import activites.*;
 
 /**
  *
@@ -133,7 +132,7 @@ public class terminerTrav extends javax.swing.JDialog {
         // on récupere le tuple en "travailEnCours"
         if(!tableTravauxEnCours.getSelectionModel().isSelectionEmpty()){
             DefaultTableModel tableModel = (DefaultTableModel) tableTravauxEnCours.getModel();
-            t = new travailEnCours((Vector)tableModel.getDataVector().elementAt(tableTravauxEnCours.getSelectedRow()));
+            t = new travailEnCours((Vector)tableModel.getDataVector().elementAt(tableTravauxEnCours.getSelectedRow()),-1);
             t.afficheTravail();
             dispose();
         }
@@ -154,12 +153,12 @@ public class terminerTrav extends javax.swing.JDialog {
         System.out.println(travauxEnCours.size());
         for(int i = 0; i < travauxEnCours.size(); i++){
             row = new Object[7];    //nbre de colonnes
-            row[0] = travauxEnCours.get(i).getTypeVoiture();
-            row[1] = travauxEnCours.get(i).getImmatriculation();
-            row[2] = travauxEnCours.get(i).getBelge();
-            row[3] = travauxEnCours.get(i).getProprio();
-            row[4] = travauxEnCours.get(i).getTypeTrav();
-            row[5] = travauxEnCours.get(i).getInstructionPart();
+            row[0] = travauxEnCours.get(i).getVoit().getTypeVoiture().toString();
+            row[1] = travauxEnCours.get(i).getVoit().getPlaqueImma();
+            row[2] = travauxEnCours.get(i).getVoit().isPlaqueBelge();
+            row[3] = travauxEnCours.get(i).getVoit().getProprio();
+            row[4] = travauxEnCours.get(i).getTypeTravail();
+            row[5] = travauxEnCours.get(i).getInstructions();
             row[6] = travauxEnCours.get(i).getNumPont();
             model.addRow(row);
         }

@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package authenticate;
+package vehicle;
 
 /**
  *
  * @author Nohch
  */
-public interface AValider {
+public class MissingTradeMarkException extends Throwable {
     
-    boolean isValid();
-    boolean validatte();
+    public String message;
+
+    public MissingTradeMarkException(String message) {
+   
+        this.message = message;
+    }
+    
 }

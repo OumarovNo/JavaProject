@@ -11,17 +11,29 @@ package people;
  */
 public class Client extends Personne implements authenticate.Identifiable{
 
+    private int ClientId;
+    
+    
     @Override
-    public String getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getId() {
+        return ClientId;
     }
 
     @Override
-    public void setId(String s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setId(int i) {
+        this.ClientId = i; 
+    }
+    public Client(String prop) {
+        
+        this.setNom(prop);
     }
 
+    @Override
+    public String toString() {
+        return  nom + prenom;
+    }
     public Client(long idClient) {
+        
         this.idClient = idClient;
     }
     long idClient;

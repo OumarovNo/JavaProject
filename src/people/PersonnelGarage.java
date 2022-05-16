@@ -57,7 +57,7 @@ public abstract class PersonnelGarage extends Personne implements authenticate.I
     }
 
     @Override
-    public boolean validate() {
+    public boolean validatte() {
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

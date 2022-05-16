@@ -16,12 +16,12 @@ public class Employe extends PersonnelGarage {
     }
 
     @Override
-    public String getId() {
+    public int getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setId(String s) {
+    public void setId(int s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

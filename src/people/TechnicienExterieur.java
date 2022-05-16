@@ -39,7 +39,7 @@ public class TechnicienExterieur extends Personne implements Identifiable, AVali
     }
 
     @Override
-    public boolean validate() {
+    public boolean validatte() {
         if(getUsername().equals(userExtTable.get(getMdp())))// appel a validate en instanciant un objet mecanicien 
         {
             //TRUE
@@ -57,12 +57,12 @@ public class TechnicienExterieur extends Personne implements Identifiable, AVali
     }
 
     @Override
-    public String getId() {
+    public int getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setId(String s) {
+    public void setId(int s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

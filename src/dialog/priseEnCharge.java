@@ -5,9 +5,10 @@
  */
 package dialog;
 
+import activites.*;
+
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
-import travaux.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -48,12 +49,12 @@ public class priseEnCharge extends javax.swing.JDialog {
         System.out.println(travaux.size());
         for(int i = 0; i < travaux.size(); i++){
             row = new Object[6];    //nbre de colonnes
-            row[0] = travaux.get(i).getTypeVoiture();
-            row[1] = travaux.get(i).getImmatriculation();
-            row[2] = travaux.get(i).getBelge();
-            row[3] = travaux.get(i).getProprio();
-            row[4] = travaux.get(i).getTypeTrav();
-            row[5] = travaux.get(i).getInstructionPart();
+            row[0] = travaux.get(i).getVoit().getTypeVoiture().toString();
+            row[1] = travaux.get(i).getVoit().getPlaqueImma();
+            row[2] = travaux.get(i).getVoit().isPlaqueBelge();
+            row[3] = travaux.get(i).getVoit().getProprio();
+            row[4] = travaux.get(i).getTypeTravail();
+            row[5] = travaux.get(i).getInstructions();
             model.addRow(row);
         }
     }
@@ -213,8 +214,13 @@ public class priseEnCharge extends javax.swing.JDialog {
                     if(occupe == false)
                     {
                         DefaultTableModel tableModel = (DefaultTableModel) tableTravaux.getModel();
-                        travail tmp = new travail((Vector)tableModel.getDataVector().elementAt(tableTravaux.getSelectedRow()));
-                        t = new travailEnCours(tmp,numPont);   // récupere le tuple en "travail"
+                        try{
+                            t = new travailEnCours((Vector)tableModel.getDataVector().elementAt(tableTravaux.getSelectedRow()),numPont);
+                        }
+                        catch(Exception ex)
+                        {
+                            JOptionPane.showMessageDialog(null,"Erreur lors d'ajout à la liste!:: " +ex.getMessage());
+                        }
                         dispose();
                     }
                     else

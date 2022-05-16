@@ -11,6 +11,6 @@ package authenticate;
  */
 public interface Identifiable {
     
-    String getId();
-    void setId(String s);
+    int getId();
+    void setId(int i);
 }

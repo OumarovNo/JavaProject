@@ -25,7 +25,7 @@ public class Mecanicien extends PersonnelGarage{
     }
     
     @Override
-    public boolean validate() { // boolean mais faut traiter + que 2 cas ..
+    public boolean validatte() { // boolean mais faut traiter + que 2 cas ..
         if(super.getUsername().equals(userTable.get(super.getMdp())))// appel a validate en instanciant un objet mecanicien 
         {
             //TRUE
@@ -63,12 +63,12 @@ public class Mecanicien extends PersonnelGarage{
     
 
     @Override
-    public String getId() {
+    public int getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setId(String s) {
+    public void setId(int s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
