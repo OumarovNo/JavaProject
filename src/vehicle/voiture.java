@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Nohch
  */
-public class voiture {
+public class voiture extends vehicule{
     
     private String proprio;
     private typeVoiture typeVoiture;

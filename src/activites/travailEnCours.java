@@ -80,6 +80,11 @@ public class travailEnCours extends travail{
         System.out.println("numPont ="+getNumPont());
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     
 }
 

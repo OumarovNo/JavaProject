@@ -19,10 +19,7 @@ public class Mecanicien extends PersonnelGarage{
         super.setUsername(username); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void setMdp(String mdp) {
-        super.setMdp(mdp); //To change body of generated methods, choose Tools | Templates.
-    }
+
     
     @Override
     public boolean validatte() { // boolean mais faut traiter + que 2 cas ..

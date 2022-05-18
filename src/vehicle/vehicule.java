@@ -5,10 +5,12 @@
  */
 package vehicle;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Nohch
  */
-public class vehicule {
+public class vehicule implements Serializable {
     
 }

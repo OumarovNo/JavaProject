@@ -5,11 +5,13 @@
  */
 package vehicle;
 
+import java.io.Serializable;
+
 /**
  *
  * @author t-goo-N-Oum
  */
-public class typeVoiture {
+public class typeVoiture implements Serializable {
 
      private String Marque;
      private String Type;

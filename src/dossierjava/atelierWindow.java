@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.*;
+import Serializer.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -24,17 +26,19 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import MyVariousUtils.*;
 
 /**
  *
  * @author Nohch
  */
-public class atelierWindow extends javax.swing.JFrame implements ActionListener {
+public class atelierWindow extends javax.swing.JFrame implements ActionListener, Serializable {
 
 
 
     private List<travail> travauxAFaire;
     private List<travailEnCours> travauxEnCours,travauxTermines;
+    private FichierLog fLog;
     private JMenuItem menuItemPropos ;
     private JMenuItem menuItemInfosSys;
     private JMenuItem menuItemDebuter;
@@ -42,28 +46,67 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
      * Creates new form atelierWindow
      */
     public atelierWindow() {
+        fLog = new FichierLog("log/logsGarage");
+        try
+        {
+            fLog.writeLine("Reconstruction application");
+            containerListe container = new containerListe();
+            BinarySerializer.deserializeAtelier(container);
+            this.travauxAFaire = container.getTravauxAFaire();
+            this.travauxEnCours = container.getTravauxEnCours();
+            this.travauxTermines = container.getTravauxTermines();
+            
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null,"Deserialize Error");
+        }
+        if(travauxAFaire != null && travauxEnCours != null && travauxTermines != null)
+        {
+            fLog.writeLine("Initialisation components");
+            initComponents();
+            initMyComponents();       
+        }
+        else
+        {
+            fLog.writeLine("Erreur lors de lancement de l'app");
+            JOptionPane.showMessageDialog(null,"Erreur lors de lancement de l'app");
+        }
+       
+    }
+    public atelierWindow(int role) {
         initComponents();
         initMyComponents();
         travauxAFaire = new LinkedList();
         travauxEnCours = new LinkedList();
         travauxTermines = new LinkedList();
+        if(role == 0)
+        {
+            
+        }
         
     }
+    
+    
     private void initMyComponents()
     {
-        Color couleur = new Color(4,199,232);
+        Color couleur = new Color(0,162,232);
+        
         pont1Txt.setText("--libre--");
         pont1Txt.setBackground(couleur);
+        pont1Txt.setOpaque(true);
         
         pont2Txt.setText("--libre--");
         pont2Txt.setBackground(couleur);
-        
+        pont2Txt.setOpaque(true);
+                
         pont3Txt.setText("--libre--");
         pont3Txt.setBackground(couleur);
-        
+        pont3Txt.setOpaque(true);
+                
         solTxt.setText("--libre--");
         solTxt.setBackground(couleur);
-
+        solTxt.setOpaque(true);
         menuBarAtelier.add(Box.createHorizontalGlue());
         JMenu menu = new JMenu("Aide");
         JMenu menuParametre = new JMenu("Paramètres");
@@ -82,6 +125,36 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         menu.add(menuItemDebuter);
         menuBarAtelier.add(menu);
         menuBarAtelier.add(menuParametre);
+        
+        for(int i = 0; i < travauxEnCours.size();i++)
+        {
+            switch(travauxEnCours.get(i).getNumPont())
+            {
+                case 0:
+                    solTxt.setText(travauxEnCours.get(i).toString());
+                    solTxt.setBackground(Color.yellow);
+                    solTxt.setOpaque(true);
+                    break;
+                case 1:
+                    pont1Txt.setText(travauxEnCours.get(i).toString());
+                    pont1Txt.setBackground(Color.yellow);
+                    pont1Txt.setOpaque(true);
+                    break;
+                case 2:
+                    pont2Txt.setText(travauxEnCours.get(i).toString());
+                    pont2Txt.setBackground(Color.yellow);
+                    pont2Txt.setOpaque(true);  
+                    break;
+                case 3:
+                    pont3Txt.setText(travauxEnCours.get(i).toString());
+                    pont3Txt.setBackground(Color.yellow);
+                    pont3Txt.setOpaque(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
     
     
@@ -334,14 +407,34 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
                 Entretien ent = new Entretien(v);
                 System.out.println("AJOUT LISTE (ENTRETIEN)");
                 travauxAFaire.add(ent);
+                try
+                {
+                    fLog.writeLine("Serialisation: Ajout RDV -> ENTRETIEN");
+            
+                    BinarySerializer.serializeAtelier(new containerListe(travauxAFaire,travauxEnCours,travauxTermines));    
+                }
+                catch(IOException ex)
+                {
+                    JOptionPane.showMessageDialog(null,"Serialize Error : " + ex.getMessage());
+                }
+                
             }
             else if(v.get(4).toString().equals("Reparation"))
             {
                 Reparation rep = new Reparation(v);
-                System.out.println("AJOUT LISTE (REPARATION)");
+                fLog.writeLine("AJOUT LISTE (REPARATION)");
                 travauxAFaire.add(rep);
+                try
+                {
+                    fLog.writeLine("Serialisation: Ajout RDV -> REPARATION");
+                    BinarySerializer.serializeAtelier(new containerListe(travauxAFaire,travauxEnCours,travauxTermines));    
+                }
+                catch(IOException ex)
+                {
+                    fLog.writeLine("Serialize Error : "+ ex.getMessage());
+                    JOptionPane.showMessageDialog(null,"Serialize Error : " + ex.getMessage());
+                }
             }
-            //travauxAFaire.add(new travail(v));
                
         }
         
@@ -355,30 +448,39 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         travailEnCours t = p.runDialog();
         if(t != null)
         {
-            System.out.println("AFFIHCAGE -------");
+            fLog.writeLine("AJOUT ITEM PRISEENCHARGE");
             //travail tmp = new travail(t);// remove return false si on envoie t c pas pk
             travauxAFaire.remove(t);    // on supprime le NOUVEAU travail en cours de la liste des travaux A FAIRE 
             travauxEnCours.add(t);      // l'élément est ensuite ajouté a la liste travauxEnCours
+            try
+            {
+                fLog.writeLine("Serialisation Liste EnCours: nouveau item prise en charge");
+                BinarySerializer.serializeAtelier(new containerListe(travauxAFaire,travauxEnCours,travauxTermines));    
+            }
+            catch(IOException ex)
+            {
+               JOptionPane.showMessageDialog(null,"Serialize Error : " + ex.getMessage());
+            }
             t.afficheTravail();
             switch(t.getNumPont())
             {
                 case 1:
-                    pont1Txt.setText(t.getVoit().getTypeVoiture().toString());
+                    pont1Txt.setText(t.toString());
                     pont1Txt.setBackground(Color.yellow);
                     pont1Txt.setOpaque(true);
                     break;
                 case 2:
-                    pont2Txt.setText(t.getVoit().getTypeVoiture().toString());
+                    pont2Txt.setText(t.toString());
                     pont2Txt.setBackground(Color.yellow);
                     pont2Txt.setOpaque(true);
                     break;
                 case 3:
-                    pont3Txt.setText(t.getVoit().getTypeVoiture().toString());
+                    pont3Txt.setText(t.toString());
                     pont3Txt.setBackground(Color.yellow);
                     pont3Txt.setOpaque(true);
                     break;
                 case 0:
-                    solTxt.setText(t.getVoit().getTypeVoiture().toString());
+                    solTxt.setText(t.toString());
                     solTxt.setBackground(Color.yellow);
                     solTxt.setOpaque(true);
                     break;
@@ -395,7 +497,15 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         {
             travauxEnCours.remove(tmp);
             travauxTermines.add(tmp);
-
+            try
+            {
+                BinarySerializer.serializeAtelier(new containerListe(travauxAFaire,travauxEnCours,travauxTermines));    
+            }
+            catch(IOException ex)
+            {
+                fLog.writeLine("Serialize Liste Termine Error : " + ex.getMessage());
+               JOptionPane.showMessageDialog(null,"Serialize Error : " + ex.getMessage());
+            }
             Color couleur = new Color(4,199,232);
             switch(tmp.getNumPont())
             {
@@ -458,18 +568,30 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener 
         });
     }
     
+    public void serializeAtelier(String filePath) throws IOException
+    {
+        FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(this);
+    }
+    
+
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == menuItemPropos )
         {
+            fLog.writeLine("Appui Bouton A Propos : " );
             new aPropos(this,true).setVisible(true);
         }
         else if(e.getSource() == menuItemInfosSys)
         {
+            fLog.writeLine("Appui Bouton A Infos système : " );
             new infoSys(this,true).setVisible(true);
         }
         else if(e.getSource() == menuItemDebuter)
         {
+            fLog.writeLine("Appui Bouton Debuter : " );
             new debuter(this,true).setVisible(true);
         }
         

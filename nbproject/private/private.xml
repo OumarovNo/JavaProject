@@ -3,20 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/activites/Reparation.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/activites/travailEnCours.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/vehicle/typeVoiture.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/dialog/aPrevoir.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/vehicle/voiture.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/dossierjava/atelierWindow.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/activites/travail.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/dialog/priseEnCharge.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/people/PersonnelGarage.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/dialog/terminerTrav.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/dossierjava/Login.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/activites/Entretien.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/vehicle/MissingTradeMarkException.java</file>
-            <file>file:/C:/Users/Nohch/Downloads/JavaProject-main/JavaProject-main/src/vehicle/vehicule.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/vehicle/voiture.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/vehicle/typeVoiture.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/vehicle/vehicule.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/dossierjava/atelierWindow.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/dossierjava/Login.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/dossierjava/containerListe.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/activites/travailEnCours.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/PersonnelGarage.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/Mecanicien.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/activites/travail.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/Serializer/BinarySerializer.java</file>
         </group>
     </open-files>
 </project-private>

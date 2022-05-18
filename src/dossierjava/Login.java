@@ -7,9 +7,9 @@ package dossierjava;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
-import people.PersonnelGarage;
-import people.Mecanicien;
-import people.TechnicienExterieur;
+import people.*;
+import Serializer.propertiesGarage;
+
 /**
  *
  * @author Nohch
@@ -46,7 +46,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
-        usernameTxt.setText("Nohcho");
+        usernameTxt.setText("nohcho");
 
         buttonGroup1.add(buttonMemPer);
         buttonMemPer.setText("Membre personnel");
@@ -61,7 +61,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        passwordTxt.setText("Oumarov");
+        passwordTxt.setText("abc");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,6 +115,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(buttonMemPer.isSelected())   // si membre personnel, alors on instancie un mécano et essaie de le log
         {
+            /*
             Mecanicien mecano = new Mecanicien();
             mecano.setMdp(String.valueOf(passwordTxt.getPassword()));
             mecano.setUsername(usernameTxt.getText().trim());
@@ -123,10 +124,12 @@ public class Login extends javax.swing.JFrame {
                 
                 new atelierWindow().setVisible(true);
                 dispose();
-            }
+            }*/
+            propertiesGarage.load(0);
         }
         else if (buttonExtHab.isSelected())
         {
+            /*
             TechnicienExterieur tech = new TechnicienExterieur();
             tech.setMdp(String.valueOf(passwordTxt.getPassword()));
             tech.setUsername(usernameTxt.getText().trim());
@@ -134,13 +137,28 @@ public class Login extends javax.swing.JFrame {
             {
                 close();
                 new atelierWindow().setVisible(true);
-                //System.exit(0);
-            }
+            }*/
+            propertiesGarage.load(1);
         }
         else
         {
             JOptionPane.showMessageDialog(null,"Selectionnez un rôle!");
         }
+        
+        String value = propertiesGarage.getProp().getProperty(usernameTxt.getText());
+        if(value == null)
+        {
+            JOptionPane.showMessageDialog(null,"User pas trouvé!");
+        }
+        else if(!value.equals(passwordTxt.getText()))
+        {
+            JOptionPane.showMessageDialog(null,"mot de passe incorrect!");
+        }else
+        {
+            new atelierWindow().setVisible(true);
+            dispose();     
+        }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -5,6 +5,7 @@
  */
 package activites;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -105,12 +106,13 @@ public class travail {
 }
 */
 
-public class travail
+public class travail implements Serializable
 {
     private int idMecanicienEnCharge;
     private voiture voit;
     private String instructions;
     private String typeTravail;
+    
 
     public travail(travail t)
     {
@@ -182,7 +184,7 @@ public class travail
 
     @Override
     public String toString() {
-        return "travail{" + voit.toString() + ", typeTravail=" + typeTravail + '}';
+        return getVoit().getTypeVoiture().toString() + "(" + getVoit().getProprio() + ")";
     }
 
 
