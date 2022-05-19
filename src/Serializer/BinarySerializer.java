@@ -5,7 +5,7 @@
  */
 package Serializer;
 
-import dossierjava.*;
+import forms.containerListe;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,7 +40,7 @@ public class BinarySerializer {
         {
             FileInputStream fileInputStream = new FileInputStream(atelierPath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            containerListe deserializedUser = (containerListe) objectInputStream.readObject();
+            forms.containerListe deserializedUser = (forms.containerListe) objectInputStream.readObject();
             atelier.setTravauxAFaire(deserializedUser.getTravauxAFaire());
             atelier.setTravauxEnCours(deserializedUser.getTravauxEnCours());
             atelier.setTravauxTermines(deserializedUser.getTravauxTermines());
@@ -51,6 +51,8 @@ public class BinarySerializer {
             
             try 
             {
+                System.out.println("Tentative de création fichier ");
+            
                 File myObj = new File(atelierPath);
                 if (myObj.createNewFile())
                 {

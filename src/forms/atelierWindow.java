@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dossierjava;
+package forms;
 
-import activites.Entretien;
-import activites.Reparation;
-import activites.travail;
-import activites.travailEnCours;
+import activites.*;
 import dialog.*;
+import network.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,9 +37,12 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private List<travail> travauxAFaire;
     private List<travailEnCours> travauxEnCours,travauxTermines;
     private FichierLog fLog;
+    private NetworkBasicClient client;
     private JMenuItem menuItemPropos ;
     private JMenuItem menuItemInfosSys;
     private JMenuItem menuItemDebuter;
+     
+
     /**
      * Creates new form atelierWindow
      */
@@ -76,7 +77,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     }
     public atelierWindow(int role) {
         initComponents();
-        initMyComponents();
+        initMyComponents(role);
         travauxAFaire = new LinkedList();
         travauxEnCours = new LinkedList();
         travauxTermines = new LinkedList();
@@ -88,8 +89,17 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     }
     
     
-    private void initMyComponents()
+    private void initMyComponents(int role)
     {
+        try
+        {
+            client = new NetworkBasicClient("192.168.1.54",50001);    
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Erreur lors connexion au serveur :: "+ ex.getMessage());
+        }
+        
         Color couleur = new Color(0,162,232);
         
         pont1Txt.setText("--libre--");
@@ -190,6 +200,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         pont3Txt = new javax.swing.JLabel();
         solTxt = new javax.swing.JLabel();
         pont2Txt = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         menuBarAtelier = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuBarItemAPrevoir = new javax.swing.JMenuItem();
@@ -235,8 +246,6 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
 
         buttonAbsent.setText("Certains absents");
 
-        labelImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nohch\\Documents\\NetBeansProjects\\DossierJava\\img\\imgAtelier.png")); // NOI18N
-
         jLabel11.setText("12:44");
 
         pont1Txt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -246,6 +255,13 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         solTxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         pont2Txt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -335,7 +351,10 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
                                     .addComponent(buttonPresent)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(133, 133, 133)
-                                .addComponent(labelImage))))
+                                .addComponent(labelImage))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(101, 101, 101)
+                                .addComponent(jButton1))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel11)))
@@ -350,7 +369,9 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
                         .addGap(41, 41, 41)
-                        .addComponent(labelImage))
+                        .addComponent(labelImage)
+                        .addGap(150, 150, 150)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -532,6 +553,12 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         }
     }//GEN-LAST:event_menuBarTerminerTravActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        client.sendStringWithoutWaiting("caca");
+        client.setEndSending();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -607,6 +634,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private javax.swing.JCheckBox checkBoxPatronDisp;
     private javax.swing.JCheckBox checkBoxPauseMidi;
     private javax.swing.JTextField diversTxt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
