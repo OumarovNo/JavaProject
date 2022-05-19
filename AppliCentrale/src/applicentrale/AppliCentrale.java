@@ -66,6 +66,7 @@ public class AppliCentrale extends javax.swing.JFrame {
         radioBtnNonDisp = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        reponseText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +120,12 @@ public class AppliCentrale extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 102));
         jLabel3.setOpaque(true);
 
+        reponseText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reponseTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,7 +161,9 @@ public class AppliCentrale extends javax.swing.JFrame {
                         .addGap(78, 78, 78)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(231, 231, 231)
+                        .addGap(50, 50, 50)
+                        .addComponent(reponseText, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -178,7 +187,8 @@ public class AppliCentrale extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,8 +197,9 @@ public class AppliCentrale extends javax.swing.JFrame {
                             .addComponent(radioBtnNonDisp)
                             .addComponent(radioBtnDisp)
                             .addComponent(btnVerifDisp))
-                        .addGap(28, 28, 28)))
-                .addComponent(jButton1))
+                        .addGap(18, 18, 18)
+                        .addComponent(reponseText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13))))
         );
 
         pack();
@@ -199,6 +210,9 @@ public class AppliCentrale extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerifDispActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        
+        server.sendMessage(reponseText.getText());
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -206,6 +220,11 @@ public class AppliCentrale extends javax.swing.JFrame {
         // TODO add your handling code here:
         messageLabel.setText(server.getMessage());
     }//GEN-LAST:event_btnLireMessActionPerformed
+
+    private void reponseTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reponseTextActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_reponseTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,5 +275,6 @@ public class AppliCentrale extends javax.swing.JFrame {
     private javax.swing.JLabel messageLabel;
     private javax.swing.JRadioButton radioBtnDisp;
     private javax.swing.JRadioButton radioBtnNonDisp;
+    private javax.swing.JTextField reponseText;
     // End of variables declaration//GEN-END:variables
 }

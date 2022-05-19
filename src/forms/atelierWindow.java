@@ -41,7 +41,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private JMenuItem menuItemPropos ;
     private JMenuItem menuItemInfosSys;
     private JMenuItem menuItemDebuter;
-     
+    private JMenuItem menuItemCommander; 
 
     /**
      * Creates new form atelierWindow
@@ -66,7 +66,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         {
             fLog.writeLine("Initialisation components");
             initComponents();
-            initMyComponents();       
+            initMyComponents(0);       
         }
         else
         {
@@ -76,30 +76,51 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
        
     }
     public atelierWindow(int role) {
-        initComponents();
-        initMyComponents(role);
-        travauxAFaire = new LinkedList();
-        travauxEnCours = new LinkedList();
-        travauxTermines = new LinkedList();
-        if(role == 0)
+        fLog = new FichierLog("log/logsGarage");
+        try
         {
+            fLog.writeLine("Reconstruction application");
+            containerListe container = new containerListe();
+            BinarySerializer.deserializeAtelier(container);
+            this.travauxAFaire = container.getTravauxAFaire();
+            this.travauxEnCours = container.getTravauxEnCours();
+            this.travauxTermines = container.getTravauxTermines();
             
         }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null,"Deserialize Error");
+        }
+        if(travauxAFaire != null && travauxEnCours != null && travauxTermines != null)
+        {
+            fLog.writeLine("Initialisation components");
+            initComponents();
+                   
+        }
+        else
+        {
+            fLog.writeLine("Erreur lors de lancement de l'app");
+            JOptionPane.showMessageDialog(null,"Erreur lors de lancement de l'app");
+        }
+        if(role == 0)
+        {
+            initMyComponents(0);
+        }
+        else
+            initMyComponents(1);
         
     }
     
     
     private void initMyComponents(int role)
-    {
-        try
+    {        
+        if(role == 0)
         {
-            client = new NetworkBasicClient("192.168.1.54",50001);    
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Erreur lors connexion au serveur :: "+ ex.getMessage());
-        }
-        
+            JMenu menuMateriel = new JMenu("Matériel");
+            menuItemCommander = new JMenuItem("Commander");
+            menuMateriel.add(menuItemCommander);
+            menuBarAtelier.add(menuMateriel);
+        }        
         Color couleur = new Color(0,162,232);
         
         pont1Txt.setText("--libre--");
@@ -129,7 +150,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         menuItemPropos.addActionListener(this);
         menuItemInfosSys.addActionListener(this);
         menuItemDebuter.addActionListener(this);
-        
+        menuItemCommander.addActionListener(this);
         menu.add(menuItemPropos);
         menuParametre.add(menuItemInfosSys);
         menu.add(menuItemDebuter);
@@ -620,6 +641,11 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         {
             fLog.writeLine("Appui Bouton Debuter : " );
             new debuter(this,true).setVisible(true);
+        }
+        else if(e.getSource() == menuItemCommander)
+        {
+            fLog.writeLine("Appui bouton menu commander");
+            new commander(this,true).setVisible(true);
         }
         
         

@@ -155,7 +155,10 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"mot de passe incorrect!");
         }else
         {
-            new atelierWindow().setVisible(true);
+            if(buttonMemPer.isSelected())
+                new atelierWindow(0).setVisible(true);
+            else
+                new atelierWindow(1).setVisible(true);
             dispose();     
         }
         
