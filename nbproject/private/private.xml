@@ -8,12 +8,17 @@
             <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/vehicle/vehicule.java</file>
             <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/dossierjava/atelierWindow.java</file>
             <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/dossierjava/Login.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/Employe.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/PersonnelGarage.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/Serializer/usersTiers.properties</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/Mecanicien.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/Serializer/BinarySerializer.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/Personne.java</file>
             <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/dossierjava/containerListe.java</file>
             <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/activites/travailEnCours.java</file>
-            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/PersonnelGarage.java</file>
-            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/people/Mecanicien.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/Serializer/propertiesGarage.java</file>
             <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/activites/travail.java</file>
-            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/Serializer/BinarySerializer.java</file>
+            <file>file:/C:/Users/Nohch/Documents/Java/JavaProject/src/Serializer/usersEmploye.properties</file>
         </group>
     </open-files>
 </project-private>
