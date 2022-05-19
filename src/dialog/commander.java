@@ -22,7 +22,7 @@ public class commander extends javax.swing.JDialog {
         initComponents();
         try
         {
-            client = new NetworkBasicClient("localhost",50001);    
+            client = new NetworkBasicClient("91.179.127.191",50001);    
         }
         catch(Exception ex)
         {
