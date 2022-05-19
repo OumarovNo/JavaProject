@@ -1,2 +1,4 @@
-# JavaProject
-DossierJava2022
+# Java Final Project
+
+## Garage HEPL
+Application de gestion d'un garage ...
