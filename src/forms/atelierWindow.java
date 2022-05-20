@@ -5,6 +5,7 @@
  */
 package forms;
 
+import containers.containerListe;
 import activites.*;
 import dialog.*;
 import network.*;
@@ -41,7 +42,11 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private JMenuItem menuItemPropos ;
     private JMenuItem menuItemInfosSys;
     private JMenuItem menuItemDebuter;
-    private JMenuItem menuItemCommander; 
+    private JMenuItem menuCommander; 
+    private JMenuItem menuItemCommanderPiece; 
+    private JMenuItem menuItemCommanderLubrifiant; 
+    private JMenuItem menuItemCommanderPneus; 
+
 
     /**
      * Creates new form atelierWindow
@@ -114,12 +119,27 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     
     private void initMyComponents(int role)
     {        
+        this.setTitle("atelier de garage");
         if(role == 0)
         {
             JMenu menuMateriel = new JMenu("Matériel");
-            menuItemCommander = new JMenuItem("Commander");
-            menuMateriel.add(menuItemCommander);
+            menuCommander = new JMenu("Commander");
+            menuItemCommanderPiece = new JMenuItem("Commander Pièces");
+            menuItemCommanderLubrifiant = new JMenuItem("Commander Pneus");
+            menuItemCommanderPneus = new JMenuItem("Commander Lubrifiant");
+
+            menuCommander.add(menuItemCommanderPiece);
+            menuCommander.add(menuItemCommanderLubrifiant);
+            menuCommander.add(menuItemCommanderPneus);
+            menuMateriel.add(menuCommander);
             menuBarAtelier.add(menuMateriel);
+            
+            
+            // add ces components dans la liste de listeners
+            menuItemCommanderPiece.addActionListener(this);
+            menuItemCommanderPneus.addActionListener(this);
+            menuItemCommanderLubrifiant.addActionListener(this);
+            
         }        
         Color couleur = new Color(0,162,232);
         
@@ -150,7 +170,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         menuItemPropos.addActionListener(this);
         menuItemInfosSys.addActionListener(this);
         menuItemDebuter.addActionListener(this);
-        menuItemCommander.addActionListener(this);
+        
         menu.add(menuItemPropos);
         menuParametre.add(menuItemInfosSys);
         menu.add(menuItemDebuter);
@@ -642,11 +662,20 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
             fLog.writeLine("Appui Bouton Debuter : " );
             new debuter(this,true).setVisible(true);
         }
-        else if(e.getSource() == menuItemCommander)
+        else if(e.getSource() == menuItemCommanderPiece)
         {
             fLog.writeLine("Appui bouton menu commander");
-            new commander(this,true).setVisible(true);
+            new commander(this,true,0).setVisible(true);
+        }else if(e.getSource() == menuItemCommanderPneus)
+        {
+            fLog.writeLine("Appui bouton menu commander");
+            new commander(this,true,1).setVisible(true);
+        }else if(e.getSource() == menuItemCommanderLubrifiant)
+        {
+            fLog.writeLine("Appui bouton menu commander");
+            new commander(this,true,2).setVisible(true);
         }
+        
         
         
     }
