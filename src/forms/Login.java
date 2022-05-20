@@ -113,6 +113,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+
         if(buttonMemPer.isSelected())   // si membre personnel, alors on instancie un mécano et essaie de le log
         {
             /*
@@ -145,24 +146,25 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Selectionnez un rôle!");
         }
         
-        String value = propertiesGarage.getProp().getProperty(usernameTxt.getText());
-        if(value == null)
+        if(buttonMemPer.isSelected() ||  buttonExtHab.isSelected())
         {
-            JOptionPane.showMessageDialog(null,"User pas trouvé!");
-        }
-        else if(!value.equals(passwordTxt.getText()))
-        {
-            JOptionPane.showMessageDialog(null,"mot de passe incorrect!");
-        }else
-        {
-            if(buttonMemPer.isSelected())
-                new atelierWindow(0).setVisible(true);
-            else
-                new atelierWindow(1).setVisible(true);
-            dispose();     
-        }
-        
-        
+            String value = propertiesGarage.getProp().getProperty(usernameTxt.getText());
+            if(value == null)
+            {
+                JOptionPane.showMessageDialog(null,"User pas trouvé!");
+            }
+            else if(!value.equals(passwordTxt.getText()))
+            {
+                JOptionPane.showMessageDialog(null,"mot de passe incorrect!");
+            }else
+            {
+                if(buttonMemPer.isSelected())
+                    new atelierWindow(0).setVisible(true);
+                else
+                    new atelierWindow(1).setVisible(true);
+                dispose();     
+            }
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void close()

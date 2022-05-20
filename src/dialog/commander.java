@@ -27,35 +27,43 @@ public class commander extends javax.swing.JDialog {
      */
     public commander(java.awt.Frame parent, boolean modal, int centralCible) {
         super(parent, modal);
-        initComponents();
-        initMyComponents();
+        client = null;
         try
         {
             client = new NetworkBasicClient("localhost",50001);    
             model = new DefaultListModel();
-            try
+            if(client != null)
             {
-                BinarySerializer.deserializeCommande(listCommande);
-            }     
-            catch(Exception ex)
-            {
-                FichierLog fLog = new FichierLog("log/logsGarage");
-                fLog.writeLine("Erreur lors de deserialisation de la liste commande!" + ex.getMessage());
-                fLog.writeLine("Constructeur pour nouvelle liste");
+                try
+                {
+                    listCommande = BinarySerializer.deserializeCommande(listCommande);
+                }     
+                catch(Exception ex)
+                {
+                    FichierLog fLog = new FichierLog("log/logsGarage");
+                    fLog.writeLine("Erreur lors de deserialisation de la liste commande!" + ex.getMessage());
+                    fLog.writeLine("Constructeur pour nouvelle liste");
 
-                System.out.println("Erreur lors de deserialisation de la liste commande");
-                listCommande = new LinkedList<commande>();
-            }
-            for(int i = 0; i < listCommande.size();i++)
-            {
-                model.addElement(listCommande.get(i).toString());
-            }
-            JlistCommandes.setModel(model);
+                    System.out.println("Erreur lors de deserialisation de la liste commande");
+                    
+                }
+                if(listCommande == null)
+                    listCommande = new LinkedList<commande>();
+                initComponents();
+                initMyComponents(); 
+                for(int i = 0; i < listCommande.size();i++)
+                {
+                    model.addElement(listCommande.get(i).toString());
+                }
+                JlistCommandes.setModel(model);
+                }else
+                    dispose();
+            
         }
         catch(Exception ex)
         {
             System.out.println("Erreur lors connexion au serveur :: "+ ex.getMessage());
-            JOptionPane.showMessageDialog(null,"Connexion au serveur ratée! Verifiez si le serveur est UP!");
+            JOptionPane.showMessageDialog(null,"Connexion au serveur ratée! Verifiez si le serveur est UP!" + ex.getMessage());
             dispose();
         }
         
@@ -63,6 +71,7 @@ public class commander extends javax.swing.JDialog {
 
     public void initMyComponents()
     {
+        
         radioBtnUrgent.setActionCommand(radioBtnUrgent.getText());
         radioBtnNormal.setActionCommand(radioBtnNormal.getText());
         radioBtnNonPrio.setActionCommand(radioBtnNonPrio.getText());
@@ -230,6 +239,13 @@ public class commander extends javax.swing.JDialog {
                     try
                     {
                         Integer.parseInt(quantiteText.getText());
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, "La quantite doit etre un nombre! :: "+ ex.getMessage());
+                    }
+                    try{
+                        
                         String reponse = null;
                         String nouvelleCommande = new String();
                         if(radioBtnUrgent.isSelected())
@@ -252,14 +268,15 @@ public class commander extends javax.swing.JDialog {
                         reponse = client.sendString(nouvelleCommande);
                         commande com = new commande(buttonGroupPrio.getSelection().getActionCommand(),LibelleText.getText(),typeText.getText(),Integer.parseInt(quantiteText.getText()));
                         listCommande.add(com);
+                        BinarySerializer.serializeCommande(listCommande);
                         model.addElement(com);
                         JlistCommandes.setModel(model);
                         JOptionPane.showMessageDialog(null,com.toString() + reponse);
-                    }
-                    catch(Exception ex)
+                    }catch(Exception ex)
                     {
-                        JOptionPane.showMessageDialog(null, "La quantite doit etre un nombre! :: "+ ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "Exception! :: "+ ex.getMessage());
                     }
+                    
                 }
             }
         }
@@ -274,7 +291,8 @@ public class commander extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        client.setEndSending();
+        if(client != null)
+            client.setEndSending();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

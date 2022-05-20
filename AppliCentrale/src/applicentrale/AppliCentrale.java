@@ -32,6 +32,7 @@ public class AppliCentrale extends javax.swing.JFrame {
         
         new chooseServer(this,true).setVisible(true);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        dispose();
        
     }
     public AppliCentrale(int param)
@@ -39,17 +40,18 @@ public class AppliCentrale extends javax.swing.JFrame {
         centraleProperties.load();
         if(param == 0)
         {   //pieces
-            server = new NetworkBasicServer(Integer.parseInt(centraleProperties.getProp().getProperty("portPieces")),MessEntrantCBox);
+            server = new NetworkBasicServer(Integer.parseInt(centraleProperties.getProp().getProperty("portPieces")),this.MessEntrantCBox);
             initMyComponents(param);
         }
         else if(param == 1)
-        {   //lubrifiant
-            server = new NetworkBasicServer(Integer.parseInt(centraleProperties.getProp().getProperty("portPneus")),MessEntrantCBox);
+        {   //pneus
+            server = new NetworkBasicServer(Integer.parseInt(centraleProperties.getProp().getProperty("portPneus")),this.MessEntrantCBox);
             initMyComponents(param);
         }
         else
-        {   //pneus
-            server = new NetworkBasicServer(Integer.parseInt(centraleProperties.getProp().getProperty("portLubrifiant")),MessEntrantCBox);
+        {   //lubrifiant
+            
+            server = new NetworkBasicServer(Integer.parseInt(centraleProperties.getProp().getProperty("portLubrifiant")),this.MessEntrantCBox);
             initMyComponents(param);
         }
 
@@ -74,17 +76,29 @@ public class AppliCentrale extends javax.swing.JFrame {
             this.setTitle("Centrale d'achat - LUBRIFIANT");
             labelParametre.setText("LUBRIFIANT");
         }
-
     }
     
     public void parseRequest(String request)
     {//String priorite, String libelle, String type, int quantite
-        String[] tokens = request.split("###");
-        for(int i = 0; i < tokens.length;i++)
-            System.out.println(tokens[i]);
-        currentCommande = new commande(tokens[0],tokens[1],tokens[2],Integer.parseInt(tokens[3]));
-        model.addElement(currentCommande.getLibelle());
-        ComboBoxCommEnCours.setModel(model);
+        
+        if(!(request.equals("RIEN") || request.equals("**EOC**")))
+        {
+            String[] tokens = request.split("###");
+            for(int i = 0; i < tokens.length;i++)
+                System.out.println(tokens[i]);
+            System.out.println("tokens = " + tokens.length);
+            if(tokens.length == 5)
+            {
+                currentCommande = new commande(tokens[0],tokens[1],tokens[2],Integer.parseInt(tokens[3]));
+                model.addElement(currentCommande.getLibelle());
+                ComboBoxCommEnCours.setModel(model);
+                messageLabel.setText(">>" +currentCommande.toString());
+            }
+        }
+        else
+            messageLabel.setText(">>"+request);
+        
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -266,7 +280,7 @@ public class AppliCentrale extends javax.swing.JFrame {
     private void btnLireMessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLireMessActionPerformed
         // TODO add your handling code here:
         parseRequest(server.getMessage());
-        messageLabel.setText(">>" +currentCommande.toString());
+       
         //listeCommande.add(new commande(String priorite, String libelle, String type, int quantite));
     }//GEN-LAST:event_btnLireMessActionPerformed
 

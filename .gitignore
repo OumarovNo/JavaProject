@@ -23,3 +23,6 @@ hs_err_pid*
 /AppliCentrale/build/
 /AppliCentrale/dist/
 /AppliCentrale/nbproject/private/
+/MyVarUtils/build/
+/MyVarUtils/dist/
+/MyVarUtils/nbproject/private/

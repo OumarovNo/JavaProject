@@ -82,7 +82,7 @@ public class BinarySerializer {
         }
         catch(Exception ex)
         {
-            System.out.println("Erreur deserialize : Exception non identifée  ::" + ex.getMessage());
+            System.out.println("Erreur deserialize : Exception non identifée (Le fichier est peut être vide)  ::" + ex.getMessage());
         }
     }   
     public static void serializeCommande(LinkedList<commande> com) throws IOException
@@ -92,7 +92,7 @@ public class BinarySerializer {
         objectOutputStream.writeObject(com);
     }
     
-    public static void deserializeCommande(LinkedList<commande> com)throws FileNotFoundException, IOException, OptionalDataException
+    public static LinkedList<commande> deserializeCommande(LinkedList<commande> com)throws FileNotFoundException, IOException, OptionalDataException
     {        
         try
         {
@@ -136,8 +136,10 @@ public class BinarySerializer {
         }
         catch(Exception ex)
         {
-            System.out.println("Erreur deserialize : Exception non identifée  ::" + ex.getMessage());
+            System.out.println("Erreur deserialize : Exception non identifée (Le fichier est peut être vide) ::" + ex.getMessage());
         }
+    return com;
     }
+    
 }
 
