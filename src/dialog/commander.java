@@ -30,7 +30,12 @@ public class commander extends javax.swing.JDialog {
         client = null;
         try
         {
-            client = new NetworkBasicClient("localhost",50001);    
+            if(centralCible == 0)
+                client = new NetworkBasicClient("localhost",50001);    
+            else if(centralCible == 1)
+                client = new NetworkBasicClient("localhost",50003);
+            else 
+                client = new NetworkBasicClient("localhost",50002);    
             model = new DefaultListModel();
             if(client != null)
             {
@@ -230,58 +235,64 @@ public class commander extends javax.swing.JDialog {
 
     private void btnEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerActionPerformed
         // TODO add your handling code here:
-        if(!LibelleText.getText().trim().equals(""))
-        {
-            if(!typeText.getText().trim().equals(""))
-            {
-                if(!quantiteText.getText().isEmpty())
+        try{
+            if(!LibelleText.getText().trim().equals(""))
+            {   
+                if(!typeText.getText().trim().equals(""))
                 {
-                    try
+                    if(!quantiteText.getText().isEmpty())
                     {
-                        Integer.parseInt(quantiteText.getText());
-                    }
-                    catch(Exception ex)
-                    {
-                        JOptionPane.showMessageDialog(null, "La quantite doit etre un nombre! :: "+ ex.getMessage());
-                    }
-                    try{
-                        
-                        String reponse = null;
-                        String nouvelleCommande = new String();
-                        if(radioBtnUrgent.isSelected())
-                            nouvelleCommande += "Urgent";
-                        else if(radioBtnNormal.isSelected())
-                            nouvelleCommande += "Normal";
-                        else
-                            nouvelleCommande += "NonPrio";
+                        try
+                        {
+                            Integer.parseInt(quantiteText.getText());
+                        }
+                        catch(Exception ex) 
+                        {
+                            throw new Exception("la quantite doit etre un nombre!!");
+                        }
+                        try{
 
-                        nouvelleCommande += "###";
-                        nouvelleCommande += LibelleText.getText().trim();
-                        nouvelleCommande += "###";
-                        nouvelleCommande += typeText.getText().trim();
-                        nouvelleCommande += "###";
-                        nouvelleCommande += quantiteText.getText().trim();
-                        nouvelleCommande += "###";
-                        nouvelleCommande += "EOM";   //End of Message
-                        //    public commande(short priorite, String libelle, String type, int quantite) {
-                        //JOptionPane.showMessageDialog(null, buttonGroupPrio.getSelection().getActionCommand());
-                        reponse = client.sendString(nouvelleCommande);
-                        commande com = new commande(buttonGroupPrio.getSelection().getActionCommand(),LibelleText.getText(),typeText.getText(),Integer.parseInt(quantiteText.getText()));
-                        listCommande.add(com);
-                        BinarySerializer.serializeCommande(listCommande);
-                        model.addElement(com);
-                        JlistCommandes.setModel(model);
-                        JOptionPane.showMessageDialog(null,com.toString() + reponse);
-                    }catch(Exception ex)
-                    {
-                        JOptionPane.showMessageDialog(null, "Exception! :: "+ ex.getMessage());
+                            String reponse = null;
+                            String nouvelleCommande = new String();
+                            if(radioBtnUrgent.isSelected())
+                                nouvelleCommande += "Urgent";
+                            else if(radioBtnNormal.isSelected())
+                                nouvelleCommande += "Normal";
+                            else
+                                nouvelleCommande += "NonPrio";
+
+                            nouvelleCommande += "###";
+                            nouvelleCommande += LibelleText.getText().trim();
+                            nouvelleCommande += "###";
+                            nouvelleCommande += typeText.getText().trim();
+                            nouvelleCommande += "###";
+                            nouvelleCommande += quantiteText.getText().trim();
+                            nouvelleCommande += "###";
+                            nouvelleCommande += "EOM";   //End of Message
+                            //    public commande(short priorite, String libelle, String type, int quantite) {
+                            //JOptionPane.showMessageDialog(null, buttonGroupPrio.getSelection().getActionCommand());
+                            reponse = client.sendString(nouvelleCommande);
+                            commande com = new commande(buttonGroupPrio.getSelection().getActionCommand(),LibelleText.getText(),typeText.getText(),Integer.parseInt(quantiteText.getText()));
+                            listCommande.add(com);
+                            BinarySerializer.serializeCommande(listCommande);
+                            model.addElement(com);
+                            JlistCommandes.setModel(model);
+                            JOptionPane.showMessageDialog(null,com.toString() + reponse);
+                        }catch(Exception ex)
+                        {
+                            JOptionPane.showMessageDialog(null, "Exception! :: "+ ex.getMessage());
+                        }
+
+                        }
                     }
-                    
                 }
-            }
+            } 
+        catch(Exception ex)
+        {
+            FichierLog fLog = new FichierLog("log/logsGarage");
+            fLog.writeLine("Erreur dans commander ::"+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Erreur dans commander ::"+ex.getMessage());
         }
-        
-        
         
     }//GEN-LAST:event_btnEnvoyerActionPerformed
 

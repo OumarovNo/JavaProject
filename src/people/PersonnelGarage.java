@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package people;
-import java.util.Hashtable;
+
+import java.io.Serializable;
 
 
 /**
@@ -13,29 +14,22 @@ import java.util.Hashtable;
  */
 public abstract class PersonnelGarage extends Personne implements authenticate.Identifiable, authenticate.AValider {
 
-    long matricule;
-    String mdp;
+    int matricule;
     String username;
-    public void setMatricule(long matricule) {
+    public void setMatricule(int matricule) {
         this.matricule = matricule;
     }
 
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
+
    
     
-    public PersonnelGarage(String nom, String prenom, String num, String adresse, long matricule)
+    public PersonnelGarage(String nom, String prenom, String num, String adresse, int matricule)
     {
         super(nom,prenom,num,adresse);
         this.matricule = matricule;
     }
     public PersonnelGarage(){}
 
-    public String getMdp() {
-        return mdp;
-    }
-    
 
     public String getUsername() {
         return username;
@@ -45,12 +39,6 @@ public abstract class PersonnelGarage extends Personne implements authenticate.I
         this.username = username;
     }
     
-    static public Hashtable<String,String> userTable = new Hashtable<>();    
-    static
-    {
-        userTable.put("Oumarov","Nohcho");
-        userTable.put("Goossens","Thomas");
-    }
     @Override
     public boolean isValid() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

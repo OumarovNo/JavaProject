@@ -15,19 +15,18 @@ import javax.swing.JOptionPane;
  */
 public class TechnicienExterieur extends Personne implements Identifiable, AValider{
 
-    String mdp;
-    String username;
-
-    public String getMdp() {
-        return mdp;
-    }
-
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-
+    private String username;
+    private int matricule;
     public String getUsername() {
         return username;
+    }
+
+    public int getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(int matricule) {
+        this.matricule = matricule;
     }
 
     public void setUsername(String username) {
@@ -40,7 +39,7 @@ public class TechnicienExterieur extends Personne implements Identifiable, AVali
 
     @Override
     public boolean validatte() {
-        if(getUsername().equals(userExtTable.get(getMdp())))// appel a validate en instanciant un objet mecanicien 
+        /*if(getUsername().equals(userExtTable.get(getMdp())))// appel a validate en instanciant un objet mecanicien 
         {
             //TRUE
             System.out.print("LOGIN SUCCESS!");
@@ -52,7 +51,7 @@ public class TechnicienExterieur extends Personne implements Identifiable, AVali
                 JOptionPane.showMessageDialog(null,"Mot de passe incorrect!");
             }
         else
-                JOptionPane.showMessageDialog(null,"User pas trouvé!");
+                JOptionPane.showMessageDialog(null,"User pas trouvé!");*/
         return false;
     }
 
@@ -66,12 +65,6 @@ public class TechnicienExterieur extends Personne implements Identifiable, AVali
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    static public Hashtable<String,String> userExtTable = new Hashtable<>();    
-    static
-    {
-        userExtTable.put("123","abc");
-        userExtTable.put("456","xyz");
-    }
     public TechnicienExterieur() {
     }
 

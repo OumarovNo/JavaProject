@@ -11,7 +11,7 @@ package people;
  */
 public class Employe extends PersonnelGarage {
 
-    public Employe(String nom, String prenom, String num, String adresse, long matricule) {
+    public Employe(String nom, String prenom, String num, String adresse, int matricule) {
         super(nom, prenom, num, adresse,matricule);
     }
 

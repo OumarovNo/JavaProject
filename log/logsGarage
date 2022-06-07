@@ -273,3 +273,67 @@
 [Fri May 20 19:34:26 CEST 2022] : Reconstruction application
 [Fri May 20 19:34:26 CEST 2022] : Initialisation components
 [Fri May 20 19:34:27 CEST 2022] : Appui bouton menu commander
+[Sun Jun 05 21:43:58 CEST 2022] : Reconstruction application
+[Sun Jun 05 21:43:58 CEST 2022] : Initialisation components
+[Sun Jun 05 21:44:02 CEST 2022] : Serialisation: Ajout RDV -> ENTRETIEN
+[Sun Jun 05 21:44:11 CEST 2022] : Reconstruction application
+[Sun Jun 05 21:44:11 CEST 2022] : Initialisation components
+[Sun Jun 05 21:44:16 CEST 2022] : AJOUT ITEM PRISEENCHARGE
+[Sun Jun 05 21:44:16 CEST 2022] : Serialisation Liste EnCours: nouveau item prise en charge
+[Sun Jun 05 21:45:10 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 20:36:41 CEST 2022] : Reconstruction application
+[Tue Jun 07 20:36:41 CEST 2022] : Initialisation components
+[Tue Jun 07 20:38:22 CEST 2022] : Reconstruction application
+[Tue Jun 07 20:38:23 CEST 2022] : Initialisation components
+[Tue Jun 07 20:38:44 CEST 2022] : Reconstruction application
+[Tue Jun 07 20:38:44 CEST 2022] : Initialisation components
+[Tue Jun 07 20:39:42 CEST 2022] : Reconstruction application
+[Tue Jun 07 20:39:42 CEST 2022] : Initialisation components
+[Tue Jun 07 20:58:45 CEST 2022] : Reconstruction application
+[Tue Jun 07 20:58:45 CEST 2022] : Initialisation components
+[Tue Jun 07 21:02:07 CEST 2022] : Reconstruction application
+[Tue Jun 07 21:02:07 CEST 2022] : Initialisation components
+[Tue Jun 07 21:03:07 CEST 2022] : Reconstruction application
+[Tue Jun 07 21:03:07 CEST 2022] : Initialisation components
+[Tue Jun 07 21:04:30 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:04:34 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:49:59 CEST 2022] : Reconstruction application
+[Tue Jun 07 21:49:59 CEST 2022] : Initialisation components
+[Tue Jun 07 21:50:05 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:50:20 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:50:29 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:50:38 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:52:45 CEST 2022] : Reconstruction application
+[Tue Jun 07 21:52:45 CEST 2022] : Initialisation components
+[Tue Jun 07 21:52:48 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:55:00 CEST 2022] : Reconstruction application
+[Tue Jun 07 21:55:00 CEST 2022] : Initialisation components
+[Tue Jun 07 21:55:02 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 21:55:08 CEST 2022] : Appui bouton menu commander
+[Tue Jun 07 22:51:37 CEST 2022] : Erreur lors de serialisation de user ::people.Mecanicien
+[Tue Jun 07 22:51:37 CEST 2022] : Reconstruction application
+[Tue Jun 07 22:51:37 CEST 2022] : Initialisation components
+[Tue Jun 07 22:56:26 CEST 2022] : Reconstruction application
+[Tue Jun 07 22:56:26 CEST 2022] : Initialisation components
+[Tue Jun 07 22:56:47 CEST 2022] : Reconstruction application
+[Tue Jun 07 22:56:47 CEST 2022] : Initialisation components
+[Tue Jun 07 22:57:06 CEST 2022] : Reconstruction application
+[Tue Jun 07 22:57:06 CEST 2022] : Initialisation components
+[Tue Jun 07 22:57:23 CEST 2022] : Reconstruction application
+[Tue Jun 07 22:57:23 CEST 2022] : Initialisation components
+[Tue Jun 07 23:09:49 CEST 2022] : Reconstruction application
+[Tue Jun 07 23:09:49 CEST 2022] : Initialisation components
+[Tue Jun 07 23:09:56 CEST 2022] : Appui bouton menu commander Pieces
+[Tue Jun 07 23:11:00 CEST 2022] : Reconstruction application
+[Tue Jun 07 23:11:00 CEST 2022] : Initialisation components
+[Tue Jun 07 23:11:02 CEST 2022] : Appui bouton menu commander Lubrifiant
+[Tue Jun 07 23:13:39 CEST 2022] : Reconstruction application
+[Tue Jun 07 23:13:39 CEST 2022] : Initialisation components
+[Tue Jun 07 23:13:41 CEST 2022] : Appui bouton menu commander Lubrifiant
+[Tue Jun 07 23:14:39 CEST 2022] : Reconstruction application
+[Tue Jun 07 23:14:39 CEST 2022] : Initialisation components
+[Tue Jun 07 23:15:02 CEST 2022] : Appui bouton menu commander Pneus
+[Tue Jun 07 23:25:37 CEST 2022] : Reconstruction application
+[Tue Jun 07 23:25:37 CEST 2022] : Initialisation components
+[Tue Jun 07 23:25:52 CEST 2022] : Appui bouton menu commander Pieces
+[Tue Jun 07 23:25:55 CEST 2022] : Erreur dans commander ::la quantite doit etre un nombre!!

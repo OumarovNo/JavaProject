@@ -7,16 +7,10 @@ package Serializer;
 
 import MyVariousUtils.commande;
 import containers.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
+import people.*;
+import java.io.*;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -25,16 +19,19 @@ import javax.swing.JOptionPane;
 public class BinarySerializer {
     private final static String atelierPath;
     private final static String commandePath;
+    private final static String usersPath;
     static{
         commandePath = "data"+System.getProperty("file.separator")+ "commande.dat";
         atelierPath = "data"+System.getProperty("file.separator")+ " atelier.dat";
+        usersPath = "data"+System.getProperty("file.separator")+ "usersPath.dat";
     }
     
-    public static void serializeAtelier(containerListe atelier) throws IOException
+    public static void serializeAtelier(containerListe atelier) throws IOException  // CHANGE PARAM EN INTERFACE SERIALIZABLE
     {
         FileOutputStream fileOutputStream = new FileOutputStream(atelierPath);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(atelier);
+        fileOutputStream.close();
     }
     
     public static void deserializeAtelier(containerListe atelier)throws FileNotFoundException, IOException, OptionalDataException
@@ -47,11 +44,11 @@ public class BinarySerializer {
             atelier.setTravauxAFaire(deserializedUser.getTravauxAFaire());
             atelier.setTravauxEnCours(deserializedUser.getTravauxEnCours());
             atelier.setTravauxTermines(deserializedUser.getTravauxTermines());
+            fileInputStream.close();
         }
         catch(FileNotFoundException ex)
         {
             System.out.println("Erreur deserialize : Fichier pas trouvé ::" + ex.getMessage());
-            
             try 
             {
                 System.out.println("Tentative de création fichier ");
@@ -90,6 +87,7 @@ public class BinarySerializer {
         FileOutputStream fileOutputStream = new FileOutputStream(commandePath);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(com);
+        fileOutputStream.close();
     }
     
     public static LinkedList<commande> deserializeCommande(LinkedList<commande> com)throws FileNotFoundException, IOException, OptionalDataException
@@ -100,7 +98,7 @@ public class BinarySerializer {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             LinkedList<commande> deserializedCommande = (LinkedList<commande>) objectInputStream.readObject();
             com = deserializedCommande;
-           
+            fileInputStream.close();
         }
         catch(FileNotFoundException ex)
         {
@@ -141,5 +139,16 @@ public class BinarySerializer {
     return com;
     }
     
+    public static void serializeUser(containerUser userContainer) throws IOException  // CHANGE PARAM EN INTERFACE SERIALIZABLE
+    {
+        FileOutputStream fileOutputStream = new FileOutputStream(usersPath);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        if(userContainer.isFlagExterieur())
+            objectOutputStream.writeObject((TechnicienExterieur)userContainer.getUser());
+        else
+            objectOutputStream.writeObject((Mecanicien)userContainer.getUser());
+        
+        fileOutputStream.close();
+    }
 }
 

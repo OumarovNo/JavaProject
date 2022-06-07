@@ -5,6 +5,7 @@
  */
 package people;
 
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
 
@@ -12,8 +13,9 @@ import javax.swing.JOptionPane;
  *
  * @author Nohch
  */
-public class Mecanicien extends PersonnelGarage{
+public class Mecanicien extends PersonnelGarage implements Serializable{
 
+    private static String specialite = "Mecanicien";
     @Override
     public void setUsername(String username) {
         super.setUsername(username); //To change body of generated methods, choose Tools | Templates.
@@ -23,7 +25,7 @@ public class Mecanicien extends PersonnelGarage{
     
     @Override
     public boolean validatte() { // boolean mais faut traiter + que 2 cas ..
-        if(super.getUsername().equals(userTable.get(super.getMdp())))// appel a validate en instanciant un objet mecanicien 
+        /*if(super.getUsername().equals(userTable.get(super.getMdp())))// appel a validate en instanciant un objet mecanicien 
         {
             //TRUE
             System.out.print("LOGIN SUCCESS!");
@@ -36,7 +38,7 @@ public class Mecanicien extends PersonnelGarage{
                 JOptionPane.showMessageDialog(null,"Mot de passe incorrect!");
             }
         else
-                JOptionPane.showMessageDialog(null,"User pas trouvé!");
+                JOptionPane.showMessageDialog(null,"User pas trouvé!");*/
         return false;
     }
 
@@ -46,14 +48,14 @@ public class Mecanicien extends PersonnelGarage{
     }
 
     @Override
-    public void setMatricule(long matricule) {
+    public void setMatricule(int matricule) {
         super.setMatricule(matricule); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private String specialite;
+    
     public Mecanicien(){
     this("null","null","null","null","null",0);} 
-    public Mecanicien(String nom, String prenom, String num, String adresse,String specialite, long matricule) {
+    public Mecanicien(String nom, String prenom, String num, String adresse,String specialite, int matricule) {
         super(nom,prenom,num,adresse,matricule);
         this.specialite = specialite;
     }
@@ -61,7 +63,7 @@ public class Mecanicien extends PersonnelGarage{
 
     @Override
     public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return matricule;
     }
 
     @Override

@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package forms;
+import MyVariousUtils.FichierLog;
+import Serializer.BinarySerializer;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import people.*;
 import Serializer.propertiesGarage;
+import containers.containerUser;
 
 /**
  *
@@ -37,7 +40,7 @@ public class Login extends javax.swing.JFrame {
         usernameTxt = new javax.swing.JTextField();
         buttonMemPer = new javax.swing.JRadioButton();
         buttonExtHab = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        buttonOk = new javax.swing.JButton();
         passwordTxt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,10 +57,10 @@ public class Login extends javax.swing.JFrame {
         buttonGroup1.add(buttonExtHab);
         buttonExtHab.setText("Extérieur habilité");
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonOk.setText("OK");
+        buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonOkActionPerformed(evt);
             }
         });
 
@@ -73,21 +76,21 @@ public class Login extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonMemPer)
-                                .addGap(32, 32, 32)
-                                .addComponent(buttonExtHab))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(usernameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                    .addComponent(passwordTxt)))))
+                                    .addComponent(passwordTxt)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonMemPer)
+                                .addGap(32, 32, 32)
+                                .addComponent(buttonExtHab))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addGap(115, 115, 115)
+                        .addComponent(buttonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,40 +108,27 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(buttonMemPer)
                     .addComponent(buttonExtHab))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addComponent(buttonOk, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         // TODO add your handling code here:
-
+        TechnicienExterieur tech = null;
+        Mecanicien mecano = null;
         if(buttonMemPer.isSelected())   // si membre personnel, alors on instancie un mécano et essaie de le log
         {
-            /*
-            Mecanicien mecano = new Mecanicien();
-            mecano.setMdp(String.valueOf(passwordTxt.getPassword()));
+            
+            mecano = new Mecanicien();    
             mecano.setUsername(usernameTxt.getText().trim());
-            if(mecano.validatte())
-            {
-                
-                new atelierWindow().setVisible(true);
-                dispose();
-            }*/
             propertiesGarage.load(0);
         }
         else if (buttonExtHab.isSelected())
         {
-            /*
-            TechnicienExterieur tech = new TechnicienExterieur();
-            tech.setMdp(String.valueOf(passwordTxt.getPassword()));
+            tech = new TechnicienExterieur();
             tech.setUsername(usernameTxt.getText().trim());
-            if(tech.validatte())
-            {
-                close();
-                new atelierWindow().setVisible(true);
-            }*/
             propertiesGarage.load(1);
         }
         else
@@ -158,20 +148,42 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"mot de passe incorrect!");
             }else
             {
+                
                 if(buttonMemPer.isSelected())
+                {
+                    if(mecano != null)
+                        mecano.setMatricule(Integer.parseInt(propertiesGarage.getProp().getProperty(usernameTxt.getText() + "Id")));
+                    try
+                    {
+                        BinarySerializer.serializeUser(new containerUser(false,mecano));
+                    }
+                    catch(Exception ex)
+                    {
+                        FichierLog fLog = new FichierLog("log/logsGarage");
+                        fLog.writeLine("Erreur lors de serialisation de user ::"+ex.getMessage());
+                    }
                     new atelierWindow(0).setVisible(true);
+                }
                 else
+                {
+                    if(tech != null)
+                        tech.setMatricule(Integer.parseInt(propertiesGarage.getProp().getProperty(usernameTxt.getText() + "Id")));
+                    try
+                    {
+                        BinarySerializer.serializeUser(new containerUser(true,tech));
+                    }
+                    catch(Exception ex)
+                    {
+                        FichierLog fLog = new FichierLog("log/logsGarage");
+                        fLog.writeLine("Erreur lors de serialisation de user ::"+ex.getMessage());
+                    }
                     new atelierWindow(1).setVisible(true);
+                }
                 dispose();     
             }
         }   
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonOkActionPerformed
 
-    private void close()
-    {
-        WindowEvent closeWindow = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
-    }
     /**
      * @param args the command line arguments
      */
@@ -211,7 +223,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JRadioButton buttonExtHab;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton buttonMemPer;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField passwordTxt;

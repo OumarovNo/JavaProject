@@ -26,6 +26,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import MyVariousUtils.*;
+import Threads.DateTimeThread;
+import java.text.DateFormat;
 
 /**
  *
@@ -46,7 +48,9 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private JMenuItem menuItemCommanderPiece; 
     private JMenuItem menuItemCommanderLubrifiant; 
     private JMenuItem menuItemCommanderPneus; 
-
+    private JMenuItem menuItemDateFormat;
+    private DateFormat formatActuel;
+    private DateTimeThread threadDate;
 
     /**
      * Creates new form atelierWindow
@@ -120,13 +124,16 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private void initMyComponents(int role)
     {        
         this.setTitle("atelier de garage");
+        formatActuel = DateFormat.getDateTimeInstance();
+        threadDate = new DateTimeThread(labelAffichageDateTime,formatActuel);
+        threadDate.start();
         if(role == 0)
         {
             JMenu menuMateriel = new JMenu("Matériel");
             menuCommander = new JMenu("Commander");
             menuItemCommanderPiece = new JMenuItem("Commander Pièces");
-            menuItemCommanderLubrifiant = new JMenuItem("Commander Pneus");
-            menuItemCommanderPneus = new JMenuItem("Commander Lubrifiant");
+            menuItemCommanderLubrifiant = new JMenuItem("Commander Lubrifiant");
+            menuItemCommanderPneus = new JMenuItem("Commander Pneus");
 
             menuCommander.add(menuItemCommanderPiece);
             menuCommander.add(menuItemCommanderLubrifiant);
@@ -165,14 +172,16 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         menuItemPropos = new JMenuItem("A propos");
         menuItemInfosSys = new JMenuItem("Infos système");
         menuItemDebuter = new JMenuItem("Pour débuter");
-        
+        menuItemDateFormat = new JMenuItem("Format Date");
         
         menuItemPropos.addActionListener(this);
         menuItemInfosSys.addActionListener(this);
         menuItemDebuter.addActionListener(this);
+        menuItemDateFormat.addActionListener(this);
         
         menu.add(menuItemPropos);
         menuParametre.add(menuItemInfosSys);
+        menuParametre.add(menuItemDateFormat);
         menu.add(menuItemDebuter);
         menuBarAtelier.add(menu);
         menuBarAtelier.add(menuParametre);
@@ -236,7 +245,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         buttonPresent = new javax.swing.JRadioButton();
         buttonAbsent = new javax.swing.JRadioButton();
         labelImage = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        labelAffichageDateTime = new javax.swing.JLabel();
         pont1Txt = new javax.swing.JLabel();
         pont3Txt = new javax.swing.JLabel();
         solTxt = new javax.swing.JLabel();
@@ -287,7 +296,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
 
         buttonAbsent.setText("Certains absents");
 
-        jLabel11.setText("12:44");
+        labelAffichageDateTime.setText("12:44");
 
         pont1Txt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -398,7 +407,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
                                 .addComponent(jButton1))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel11)))
+                        .addComponent(labelAffichageDateTime)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -406,7 +415,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addComponent(labelAffichageDateTime)
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
                         .addGap(41, 41, 41)
@@ -664,16 +673,23 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
         }
         else if(e.getSource() == menuItemCommanderPiece)
         {
-            fLog.writeLine("Appui bouton menu commander");
+            fLog.writeLine("Appui bouton menu commander Pieces");
             new commander(this,true,0).setVisible(true);
         }else if(e.getSource() == menuItemCommanderPneus)
         {
-            fLog.writeLine("Appui bouton menu commander");
+            fLog.writeLine("Appui bouton menu commander Pneus");
             new commander(this,true,1).setVisible(true);
         }else if(e.getSource() == menuItemCommanderLubrifiant)
         {
-            fLog.writeLine("Appui bouton menu commander");
+            fLog.writeLine("Appui bouton menu commander Lubrifiant");
             new commander(this,true,2).setVisible(true);
+        }
+        else if(e.getSource() == menuItemDateFormat)
+        {
+            fLog.writeLine("Appui bouton menu commander");
+            DateTimeFormat dtf = new DateTimeFormat(this,true);
+            formatActuel = dtf.runDialog();
+            threadDate.setFormat(formatActuel);
         }
         
         
@@ -692,7 +708,6 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -703,6 +718,7 @@ public class atelierWindow extends javax.swing.JFrame implements ActionListener,
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JLabel labelAffichageDateTime;
     private javax.swing.JLabel labelImage;
     private javax.swing.JMenuBar menuBarAtelier;
     private javax.swing.JMenuItem menuBarItemAPrevoir;
